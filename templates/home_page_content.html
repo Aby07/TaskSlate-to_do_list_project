@@ -1,0 +1,32 @@
+{% load static %}
+<div class="text-center text-white p-8">
+    <img src="{% static 'images/logo1.png' %}" alt="To-Do List App Logo" class="mx-auto mb-6 h-32">
+    <h1 class="text-5xl font-bold">TaskSlate.com</h1>
+    <p class="mt-4 text-gray-400">Track and manage your tasks efficiently with a modern, intuitive interface.</p>
+    <p class="mt-2 text-gray-400">Get started now and stay on top of your to-do list.</p>
+</div>
+
+<div class="flex space-x-6">
+    <a href="{% url 'login_view' %}" id="signin-btn" class="block py-3 px-6 bg-indigo-600 text-white rounded-lg text-center hover:bg-red-700 transition duration-300">
+        Sign In
+    </a>
+
+    <a href="{% url 'signup_view' %}" id="signup-btn" class="block py-3 px-6 bg-teal-600 text-white rounded-lg text-center hover:bg-yellow-700 transition duration-300">
+        Sign Up
+    </a>
+</div>
+
+<script>
+    const signinButton = document.getElementById('signin-btn');
+    const signupButton = document.getElementById('signup-btn');
+
+    signinButton.addEventListener('click', function() {
+        signinButton.classList.toggle('bg-indigo-700');
+        signinButton.classList.toggle('bg-indigo-600');
+    });
+
+    signupButton.addEventListener('click', function() {
+        signupButton.classList.toggle('bg-teal-700');
+        signupButton.classList.toggle('bg-teal-600');
+    });
+</script>

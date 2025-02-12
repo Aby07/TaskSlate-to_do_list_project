@@ -1,0 +1,8 @@
+.message-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #642121;
+}
