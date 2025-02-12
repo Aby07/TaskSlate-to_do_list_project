@@ -8,7 +8,6 @@ def login_view(request):
         try:
             username=request.POST.get('username')
             password=request.POST.get('password')
-
             user=authenticate(request, username=username, password=password)
 
             if user is not None:
