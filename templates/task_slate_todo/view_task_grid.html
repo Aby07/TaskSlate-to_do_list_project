@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block bodycontent %}
+
+<div class="w-full min-h-screen p-10 bg-gray-800 rounded-lg shadow-lg">
+    {% include 'task_slate_todo/header.html' %}
+
+    <div class="mt-10 px-4 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-6 text-3xl font-semibold text-center text-gray-700">Your Tasks</h2>
+    
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+            {% for task in tasks %}
+                <div class="flex justify-center">
+                    <a href="#">
+                        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out">
+
+                            <div class="rounded-xl bg-gray-300 text-sm text-gray-600 mb-2 flex items-center px-4 py-4">
+                                <span class="flex items-center text-xl font-medium text-gray-800 mb-2">
+                                    <span class="mr-1">{{ task.title }}</span>
+                                </span>
+                            </div>
+
+                            <div class="text-sm text-gray-600 mb-2">
+                                <span class="flex items-center">
+                                    <span class="mr-1">Created At:</span>
+                                        {{ task.created_at|date:"F j, Y" }}
+                                    </span>
+                                </span>
+                            </div>
+
+                            <div class="text-sm text-gray-600 mb-2">
+                                <span class="flex items-center">
+                                    <span class="mr-1">Deadline:</span>
+                                        {{ task.due_date|date:"F j, Y" }}
+                                    </span>
+                                </span>
+                            </div>
+
+                            <div class="flex justify-between items-center text-sm text-gray-600 mb-2">
+                                <span class="flex items-center">
+                                    <span class="mr-1">Completed:</span>
+                                    {% if task.is_completed %}
+                                        <span class="font-semibold text-green-500">Yes</span>
+                                    {% else %}
+                                        <span class="font-semibold text-red-500">No</span>
+                                    {% endif %}
+                                </span>         
+                            </div>
+
+                            <div class="flex justify-between items-center text-sm text-gray-600 mb-2">
+                                <span class="flex items-center">
+                                    <span class="mr-1">Priority:</span>
+                                    <span class="font-semibold">
+                                        {% if task.priority == 'High' %}
+                                            <span class="text-red-500">High</span>
+                                        {% elif task.priority == 'Medium' %}
+                                            <span class="text-yellow-500">Medium</span>
+                                        {% else %}
+                                            <span class="text-green-500">Medium</span>
+                                        {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% empty %}
+                <div class="col-span-full text-center text-gray-500">
+                    No tasks available.
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock bodycontent %}

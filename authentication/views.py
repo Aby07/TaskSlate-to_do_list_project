@@ -1,26 +1,34 @@
 from django.shortcuts import redirect, render
 from .forms import SignUpForm
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
+# Logout view
+def logout_view(request):
+    logout(request)
+    return redirect('task_slate_todo:index')
 
 def login_view(request):
-    if request.POST and 'login' in request.POST:
+    if request.user.is_authenticated:
+        return redirect('task_slate_todo:task_dashboard')
+
+    if request.method == 'POST' and 'login' in request.POST:
         try:
-            username=request.POST.get('username')
-            password=request.POST.get('password')
-            user=authenticate(request, username=username, password=password)
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
 
             if user is not None:
                 login(request, user)
-                success_message="Login Successful"
-                messages.success(request, success_message)
+                return redirect('task_slate_todo:task_dashboard')
 
             else:
-                error_message = "Invalid Credintials"
+                error_message = "Invalid Credentials"
                 messages.error(request, error_message)
 
         except Exception as e:
-            error_message="An error occured" + str(e)
+            error_message = "An error occurred: " + str(e)
             messages.error(request, error_message)
 
     return render(request, 'authentication/login.html')
@@ -40,5 +48,3 @@ def signup_view(request):
     }
 
     return render(request, 'authentication/signup.html', context)
-
-
