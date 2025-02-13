@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Account Details {% endblock %}
+
+{% block bodycontent %}
+<div class="w-full min-h-screen flex flex-col items-center justify-start p-10 bg-gray-800">
+    <div class="w-full">
+        {% include 'task_slate_todo/header.html' %}
+    </div>
+    
+    <div class="w-full max-w-md bg-white rounded-xl shadow-lg p-8 mt-10">
+        <h2 class="text-2xl font-semibold text-center mb-6 text-gray-800">Your Account Details</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="space-y-6">
+                <div>
+                    <label for="id_username" class="block text-gray-600 font-medium">Username:</label>
+                    <input type="text" name="username" value="{{ user.username }}" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700" disabled>
+                </div>
+                
+                <div>
+                    <label for="id_email" class="block text-gray-600 font-medium">Email:</label>
+                    <input type="email" name="email" value="{{ user.email }}" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <div>
+                    <label for="id_first_name" class="block text-gray-600 font-medium">Full Name:</label>
+                    <input type="text" name="first_name" value="{{ user.first_name }}" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <div>
+                    <label for="id_phone_number" class="block text-gray-600 font-medium">Phone Number:</label>
+                    <input type="text" name="phone_number" value="{{ user.phone_number }}" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="mt-6">
+                    <button type="submit" class="w-full py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 transition-colors duration-300">Save Changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock bodycontent %}
